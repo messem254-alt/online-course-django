@@ -1,18 +1,18 @@
 from django.urls import path
-from . import views
+from .views import submit, show_exam_result
 
 
 urlpatterns = [
 
     path(
         'submit/',
-        views.submit,
+        submit,
         name='submit'
     ),
 
     path(
-        'exam-result/',
-        views.show_exam_result,
+        'show_exam_result/',
+        show_exam_result,
         name='show_exam_result'
     ),
 

@@ -1,9 +1,9 @@
 from django.urls import path
+
 from .views import submit, show_exam_result
 
 
 urlpatterns = [
-
     path(
         'submit/',
         submit,
@@ -15,5 +15,4 @@ urlpatterns = [
         show_exam_result,
         name='show_exam_result'
     ),
-
 ]

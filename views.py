@@ -4,12 +4,12 @@ from .models import Question, Choice, Submission
 
 def submit(request):
 
+    questions = Question.objects.all()
+
     if request.method == "POST":
 
         score = 0
         results = []
-
-        questions = Question.objects.all()
 
         for question in questions:
 
@@ -50,8 +50,6 @@ def submit(request):
             }
         )
 
-    questions = Question.objects.all()
-
     return render(
         request,
         "exam.html",
@@ -67,10 +65,21 @@ def show_exam_result(request):
 
     score = 0
 
+    results = []
+
     for submission in submissions:
 
         if submission.selected_choice.is_correct:
             score += 1
+            result = "Correct"
+        else:
+            result = "Incorrect"
+
+        results.append({
+            "question": submission.question.text,
+            "selected": submission.selected_choice.text,
+            "result": result
+        })
 
     return render(
         request,
@@ -78,6 +87,6 @@ def show_exam_result(request):
         {
             "score": score,
             "total": submissions.count(),
-            "results": []
+            "results": results
         }
     )

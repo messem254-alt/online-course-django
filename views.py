@@ -1,23 +1,20 @@
 from django.shortcuts import render, get_object_or_404
+
 from .models import Question, Choice, Submission
 
 
 def submit(request):
-
     questions = Question.objects.all()
 
     if request.method == "POST":
-
         score = 0
         results = []
 
         for question in questions:
-
             answer_key = f"question_{question.id}"
             selected_id = request.POST.get(answer_key)
 
             if selected_id:
-
                 selected_choice = get_object_or_404(
                     Choice,
                     id=selected_id
@@ -60,15 +57,12 @@ def submit(request):
 
 
 def show_exam_result(request):
-
     submissions = Submission.objects.all()
 
     score = 0
-
     results = []
 
     for submission in submissions:
-
         if submission.selected_choice.is_correct:
             score += 1
             result = "Correct"
